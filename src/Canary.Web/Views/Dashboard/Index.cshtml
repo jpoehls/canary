@@ -1,0 +1,34 @@
+﻿@using Canary.Web.Models
+@model AppDashboardModel
+@{
+  ViewBag.Title = "Dashboard";
+}
+<h2>@Model.AppName / @Model.EnvName</h2>
+<!-- show 48hr error count graph here -->
+<table border="1">
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Type</th>
+      <th>Message</th>
+      <th>Last Timestamp</th>
+      <th>Week Total</th>
+      <th>Lifetime Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var e in Model.Events)
+    {
+        <tr style="cursor: pointer;"
+            onclick="javascript:window.location.href='@Url.Content("~/Event/" + e.Hash)';">
+          <td>@e.Level</td>
+          <td>@e.Type</td>
+          <td>@e.Message</td>
+          <td>@e.LastTimestamp</td>
+          <td>@e.WeekTotal</td>
+          <td>@e.LifetimeTotal</td>
+        </tr>
+    }
+  </tbody>
+</table>
+<!-- show unfixed messages sorted by most occurances in the past 48hrs, then by total occurances -->
